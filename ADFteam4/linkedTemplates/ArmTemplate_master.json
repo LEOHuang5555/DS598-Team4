@@ -11,9 +11,41 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'FinalProject'"
 		},
+		"ADLSTeam4_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSTeam4'"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"FinalProject_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "LeoHuang5555"
+		},
+		"OWAPIKey_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://OpenWeatherTeam4.vault.azure.net/"
+		},
+		"Weather_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://history.openweathermap.org/"
+		},
+		"Weather_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DS598Team4"
+		},
+		"AirPollution_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.openweathermap.org/"
+		},
+		"AirPollution_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DS598Team4"
+		},
+		"ADLSTeam4_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storageteam4.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -45,8 +77,32 @@
 					"FinalProject_credential": {
 						"value": "[parameters('FinalProject_credential')]"
 					},
+					"ADLSTeam4_accountKey": {
+						"value": "[parameters('ADLSTeam4_accountKey')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
 					"FinalProject_properties_typeProperties_username": {
 						"value": "[parameters('FinalProject_properties_typeProperties_username')]"
+					},
+					"OWAPIKey_properties_typeProperties_baseUrl": {
+						"value": "[parameters('OWAPIKey_properties_typeProperties_baseUrl')]"
+					},
+					"ADLSTeam4_properties_typeProperties_url": {
+						"value": "[parameters('ADLSTeam4_properties_typeProperties_url')]"
+					},
+					"Weather_properties_typeProperties_url": {
+						"value": "[parameters('Weather_properties_typeProperties_url')]"
+					},
+					"Weather_properties_typeProperties_userName": {
+						"value": "[parameters('Weather_properties_typeProperties_userName')]"
+					},
+					"AirPollution_properties_typeProperties_url": {
+						"value": "[parameters('AirPollution_properties_typeProperties_url')]"
+					},
+					"AirPollution_properties_typeProperties_userName": {
+						"value": "[parameters('AirPollution_properties_typeProperties_userName')]"
 					}
 				}
 			},
