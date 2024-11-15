@@ -80,8 +80,8 @@
 									"referenceName": "weather",
 									"type": "DatasetReference",
 									"parameters": {
-										"lat": 30.7918613,
-										"lon": -83.7898868,
+										"lat": 34.0536909,
+										"lon": -118.242766,
 										"start": "@div(sub(ticks(addDays(utcNow(), mul(-7, add(item(), 1)))), ticks('1970-01-01T00:00:00Z')), 10000000)",
 										"end": "@div(sub(ticks(addDays(utcNow(), mul(-7, item()))), ticks('1970-01-01T00:00:00Z')), 10000000)",
 										"apiKey": "@activity('Web1').output.value"

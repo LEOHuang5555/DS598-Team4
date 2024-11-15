@@ -8,11 +8,11 @@
 		"parameters": {
 			"lat": {
 				"type": "float",
-				"defaultValue": 30.7918613
+				"defaultValue": 34.0536909
 			},
 			"lon": {
 				"type": "float",
-				"defaultValue": -83.7898868
+				"defaultValue": -118.242766
 			},
 			"start": {
 				"type": "string",
