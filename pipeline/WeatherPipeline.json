@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"method": "GET",
-					"url": "https://openweatherteam4.vault.azure.net/secrets/OpenWeatherAPIKey/9f1c7496a97d46328b082b751e6881d7",
+					"url": "https://openweatherteam4.vault.azure.net/secrets/OpenWeatherAPI?api-version=7.0",
 					"authentication": {
 						"type": "MSI",
 						"resource": "https://vault.azure.net"
