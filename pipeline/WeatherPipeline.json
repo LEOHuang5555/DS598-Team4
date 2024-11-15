@@ -1,6 +1,7 @@
 {
 	"name": "WeatherPipeline",
 	"properties": {
+		"description": "LA Weather",
 		"activities": [
 			{
 				"name": "Web1",
