@@ -1,0 +1,10 @@
+{
+	"name": "OWAPIKey",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://OpenWeatherTeam4.vault.azure.net/"
+		}
+	}
+}
