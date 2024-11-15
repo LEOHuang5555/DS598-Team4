@@ -1,0 +1,21 @@
+{
+	"name": "Weather",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://history.openweathermap.org/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Basic",
+			"userName": "DS598Team4",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "OWAPIKey",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "OpenWeatherAPIKey"
+			}
+		}
+	}
+}
