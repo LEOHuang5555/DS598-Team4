@@ -1,0 +1,35 @@
+{
+	"name": "aviationEdge",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "aviationEdge",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"apiKey": {
+				"type": "String"
+			},
+			"depArr": {
+				"type": "String"
+			},
+			"airport": {
+				"type": "String"
+			},
+			"start": {
+				"type": "String"
+			},
+			"end": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "flightsHistory?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}

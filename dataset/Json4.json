@@ -1,0 +1,19 @@
+{
+	"name": "Json4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSTeam4",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "flightData/BOSarrival",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {}
+	}
+}
