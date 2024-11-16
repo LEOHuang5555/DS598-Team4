@@ -5,14 +5,23 @@
 		"factoryName": {
 			"value": "ADFteam4"
 		},
-		"FinalProject_credential": {
-			"value": ""
-		},
 		"ADLSTeam4_accountKey": {
 			"value": ""
 		},
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
+		},
+		"FinalProject_credential": {
+			"value": ""
+		},
+		"ADLSTeam4_properties_typeProperties_url": {
+			"value": "https://storageteam4.dfs.core.windows.net/"
+		},
+		"AirPollution_properties_typeProperties_url": {
+			"value": "https://api.openweathermap.org/"
+		},
+		"AirPollution_properties_typeProperties_userName": {
+			"value": "DS598Team4"
 		},
 		"FinalProject_properties_typeProperties_username": {
 			"value": "LeoHuang5555"
@@ -25,15 +34,6 @@
 		},
 		"Weather_properties_typeProperties_userName": {
 			"value": "DS598Team4"
-		},
-		"AirPollution_properties_typeProperties_url": {
-			"value": "https://api.openweathermap.org/"
-		},
-		"AirPollution_properties_typeProperties_userName": {
-			"value": "DS598Team4"
-		},
-		"ADLSTeam4_properties_typeProperties_url": {
-			"value": "https://storageteam4.dfs.core.windows.net/"
 		}
 	}
 }

@@ -7,10 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADFteam4"
 		},
-		"FinalProject_credential": {
-			"type": "secureString",
-			"metadata": "Secure string for 'credential' of 'FinalProject'"
-		},
 		"ADLSTeam4_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ADLSTeam4'"
@@ -18,6 +14,22 @@
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"FinalProject_credential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'credential' of 'FinalProject'"
+		},
+		"ADLSTeam4_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storageteam4.dfs.core.windows.net/"
+		},
+		"AirPollution_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.openweathermap.org/"
+		},
+		"AirPollution_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DS598Team4"
 		},
 		"FinalProject_properties_typeProperties_username": {
 			"type": "string",
@@ -34,18 +46,6 @@
 		"Weather_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "DS598Team4"
-		},
-		"AirPollution_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://api.openweathermap.org/"
-		},
-		"AirPollution_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DS598Team4"
-		},
-		"ADLSTeam4_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://storageteam4.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -74,14 +74,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"FinalProject_credential": {
-						"value": "[parameters('FinalProject_credential')]"
-					},
 					"ADLSTeam4_accountKey": {
 						"value": "[parameters('ADLSTeam4_accountKey')]"
 					},
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"FinalProject_credential": {
+						"value": "[parameters('FinalProject_credential')]"
+					},
+					"ADLSTeam4_properties_typeProperties_url": {
+						"value": "[parameters('ADLSTeam4_properties_typeProperties_url')]"
 					},
 					"FinalProject_properties_typeProperties_username": {
 						"value": "[parameters('FinalProject_properties_typeProperties_username')]"
@@ -89,20 +92,17 @@
 					"OWAPIKey_properties_typeProperties_baseUrl": {
 						"value": "[parameters('OWAPIKey_properties_typeProperties_baseUrl')]"
 					},
-					"ADLSTeam4_properties_typeProperties_url": {
-						"value": "[parameters('ADLSTeam4_properties_typeProperties_url')]"
+					"AirPollution_properties_typeProperties_url": {
+						"value": "[parameters('AirPollution_properties_typeProperties_url')]"
+					},
+					"AirPollution_properties_typeProperties_userName": {
+						"value": "[parameters('AirPollution_properties_typeProperties_userName')]"
 					},
 					"Weather_properties_typeProperties_url": {
 						"value": "[parameters('Weather_properties_typeProperties_url')]"
 					},
 					"Weather_properties_typeProperties_userName": {
 						"value": "[parameters('Weather_properties_typeProperties_userName')]"
-					},
-					"AirPollution_properties_typeProperties_url": {
-						"value": "[parameters('AirPollution_properties_typeProperties_url')]"
-					},
-					"AirPollution_properties_typeProperties_userName": {
-						"value": "[parameters('AirPollution_properties_typeProperties_userName')]"
 					}
 				}
 			},
