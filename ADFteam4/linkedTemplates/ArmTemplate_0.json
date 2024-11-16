@@ -31,6 +31,10 @@
 			"type": "string",
 			"defaultValue": "https://OpenWeatherTeam4.vault.azure.net/"
 		},
+		"aviationEdge_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://aviation-edge.com/v2/public/"
+		},
 		"AirPollution_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://api.openweathermap.org/"
@@ -115,6 +119,21 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/aviationEdge')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('aviationEdge_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Json1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -187,6 +206,70 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Json4')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/BOSarrival",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/aviationEdge')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "aviationEdge",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"apiKey": {
+						"type": "String"
+					},
+					"depArr": {
+						"type": "String"
+					},
+					"airport": {
+						"type": "String"
+					},
+					"start": {
+						"type": "String"
+					},
+					"end": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "flightsHistory?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
+						"type": "Expression"
+					}
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/aviationEdge')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AirPollution')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -236,6 +319,109 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/OWAPIKey')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ArrivalBos')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Web1",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "GET",
+							"headers": {},
+							"url": "https://openweatherteam4.vault.azure.net/secrets/aviationEdgeKey?api-version=7.0",
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "RestSource",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": "00.00:00:00.010",
+								"requestMethod": "GET",
+								"paginationRules": {
+									"supportRFC5988": "true"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "aviationEdge",
+								"type": "DatasetReference",
+								"parameters": {
+									"apiKey": {
+										"value": "@activity('Web1').output.value",
+										"type": "Expression"
+									},
+									"depArr": "arrival",
+									"airport": "BOS",
+									"start": "2023-11-16",
+									"end": "2024-11-15"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Json4",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/aviationEdge')]",
+				"[concat(variables('factoryId'), '/datasets/Json4')]"
 			]
 		},
 		{

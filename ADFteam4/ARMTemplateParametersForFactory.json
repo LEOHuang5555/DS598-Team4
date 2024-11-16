@@ -34,6 +34,9 @@
 		},
 		"Weather_properties_typeProperties_userName": {
 			"value": "DS598Team4"
+		},
+		"aviationEdge_properties_typeProperties_url": {
+			"value": "https://aviation-edge.com/v2/public/"
 		}
 	}
 }

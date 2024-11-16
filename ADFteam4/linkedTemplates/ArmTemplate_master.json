@@ -47,6 +47,10 @@
 			"type": "string",
 			"defaultValue": "DS598Team4"
 		},
+		"aviationEdge_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://aviation-edge.com/v2/public/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -91,6 +95,9 @@
 					},
 					"OWAPIKey_properties_typeProperties_baseUrl": {
 						"value": "[parameters('OWAPIKey_properties_typeProperties_baseUrl')]"
+					},
+					"aviationEdge_properties_typeProperties_url": {
+						"value": "[parameters('aviationEdge_properties_typeProperties_url')]"
 					},
 					"AirPollution_properties_typeProperties_url": {
 						"value": "[parameters('AirPollution_properties_typeProperties_url')]"
