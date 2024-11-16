@@ -1,5 +1,5 @@
 {
-	"name": "Json1",
+	"name": "Json2",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSTeam4",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "laWeather",
+				"folderPath": "bostonWeather",
 				"fileSystem": "bronze"
 			}
 		},

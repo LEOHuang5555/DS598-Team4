@@ -1,7 +1,6 @@
 {
-	"name": "WeatherPipelineLA",
+	"name": "WeatherPipelineBos",
 	"properties": {
-		"description": "LA Weather",
 		"activities": [
 			{
 				"name": "Web1",
@@ -38,7 +37,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@range(13, 137)\n",
+						"value": "@range(13,137)",
 						"type": "Expression"
 					},
 					"activities": [
@@ -70,8 +69,7 @@
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "JsonWriteSettings",
-										"filePattern": "setOfObjects"
+										"type": "JsonWriteSettings"
 									}
 								},
 								"enableStaging": false
@@ -81,8 +79,8 @@
 									"referenceName": "weather",
 									"type": "DatasetReference",
 									"parameters": {
-										"lat": 34.0536909,
-										"lon": -118.242766,
+										"lat": 42.3601,
+										"lon": -71.0589,
 										"start": "@div(sub(ticks(addDays(utcNow(), mul(-7, add(item(), 1)))), ticks('1970-01-01T00:00:00Z')), 10000000)",
 										"end": "@div(sub(ticks(addDays(utcNow(), mul(-7, item()))), ticks('1970-01-01T00:00:00Z')), 10000000)",
 										"apiKey": "@activity('Web1').output.value"
@@ -91,7 +89,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Json1",
+									"referenceName": "Json2",
 									"type": "DatasetReference"
 								}
 							]
