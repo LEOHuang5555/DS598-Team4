@@ -30,7 +30,10 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": "data/2.5/history/city?lat=@{dataset().lat}&lon=@{dataset().lon}&type=hour&start=@{dataset().start}&end=@{dataset().end}&appid=@{dataset().apiKey}"
+			"relativeUrl": {
+				"value": "data/2.5/history/city?lat=@{dataset().lat}&lon=@{dataset().lon}&start=@{dataset().start}&end=@{dataset().end}&appid=@{dataset().apiKey}",
+				"type": "Expression"
+			}
 		},
 		"schema": []
 	}
