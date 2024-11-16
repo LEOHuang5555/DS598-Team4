@@ -94,7 +94,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@range(0,52)",
+								"value": "@range(53,104)",
 								"type": "Expression"
 							},
 							"activities": [
@@ -152,7 +152,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "Json2",
+											"referenceName": "Json3",
 											"type": "DatasetReference",
 											"parameters": {}
 										}
@@ -169,7 +169,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/weather')]",
-				"[concat(variables('factoryId'), '/datasets/Json2')]"
+				"[concat(variables('factoryId'), '/datasets/Json3')]"
 			]
 		},
 		{
@@ -333,6 +333,30 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"folderPath": "bostonWeather",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "bostonWeather2",
 						"fileSystem": "bronze"
 					}
 				},
