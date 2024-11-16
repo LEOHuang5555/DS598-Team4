@@ -1,0 +1,12 @@
+{
+	"name": "aviationEdge",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://aviation-edge.com/v2/public/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
