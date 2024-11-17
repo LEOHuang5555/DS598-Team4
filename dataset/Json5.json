@@ -112,6 +112,14 @@
 										"type": "number"
 									}
 								}
+							},
+							"snow": {
+								"type": "object",
+								"properties": {
+									"1h": {
+										"type": "number"
+									}
+								}
 							}
 						}
 					}
