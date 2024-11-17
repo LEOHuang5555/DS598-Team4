@@ -27,7 +27,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine',",
-				"     wildcardPaths:[('bronze/bostonWeather/*.json')]) ~> source1"
+				"     wildcardPaths:['\\'bronze/bostonWeather/*\\'']) ~> source1"
 			]
 		}
 	}
