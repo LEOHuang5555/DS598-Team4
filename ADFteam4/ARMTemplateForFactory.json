@@ -87,8 +87,6 @@
 					{
 						"name": "ForEach1",
 						"type": "ForEach",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Web1",
@@ -100,7 +98,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@range(0,12)",
+								"value": "@range(0,24)",
 								"type": "Expression"
 							},
 							"activities": [
@@ -119,7 +117,7 @@
 									"typeProperties": {
 										"source": {
 											"type": "RestSource",
-											"httpRequestTimeout": "00:01:40",
+											"httpRequestTimeout": "00:04:00",
 											"requestInterval": "00.00:00:00.010",
 											"requestMethod": "GET",
 											"paginationRules": {
@@ -146,11 +144,11 @@
 												"depArr": "arrival",
 												"airport": "BOS",
 												"start": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												},
 												"end": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												}
 											}
@@ -183,7 +181,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@range(0,12)",
+								"value": "@range(0,24)",
 								"type": "Expression"
 							},
 							"activities": [
@@ -202,7 +200,7 @@
 									"typeProperties": {
 										"source": {
 											"type": "RestSource",
-											"httpRequestTimeout": "00:01:40",
+											"httpRequestTimeout": "00:04:00",
 											"requestInterval": "00.00:00:00.010",
 											"requestMethod": "GET",
 											"paginationRules": {
@@ -229,11 +227,11 @@
 												"depArr": "departure",
 												"airport": "BOS",
 												"start": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												},
 												"end": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												}
 											}
@@ -266,7 +264,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@range(0,12)",
+								"value": "@range(0,24)",
 								"type": "Expression"
 							},
 							"activities": [
@@ -285,7 +283,7 @@
 									"typeProperties": {
 										"source": {
 											"type": "RestSource",
-											"httpRequestTimeout": "00:01:40",
+											"httpRequestTimeout": "00:04:00",
 											"requestInterval": "00.00:00:00.010",
 											"requestMethod": "GET",
 											"paginationRules": {
@@ -312,11 +310,11 @@
 												"depArr": "departure",
 												"airport": "LAX",
 												"start": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												},
 												"end": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												}
 											}
@@ -336,6 +334,8 @@
 					{
 						"name": "ForEach1_copy3",
 						"type": "ForEach",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Web1",
@@ -347,7 +347,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@range(0,2)",
+								"value": "@range(0,24)",
 								"type": "Expression"
 							},
 							"activities": [
