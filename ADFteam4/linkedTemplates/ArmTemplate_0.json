@@ -801,10 +801,13 @@
 												"depArr": "arrival",
 												"airport": "BOS",
 												"start": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												},
-												"end": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')"
+												"end": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												}
 											}
 										}
 									],
@@ -878,9 +881,12 @@
 												"apiKey": "@activity('Web1').output.value",
 												"depArr": "departure",
 												"airport": "BOS",
-												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"start": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												},
 												"end": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												}
 											}
@@ -956,9 +962,12 @@
 												"apiKey": "@activity('Web1').output.value",
 												"depArr": "departure",
 												"airport": "LAX",
-												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"start": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												},
 												"end": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												}
 											}
@@ -1034,9 +1043,12 @@
 												"apiKey": "@activity('Web1').output.value",
 												"depArr": "arrival",
 												"airport": "LAX",
-												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"start": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												},
 												"end": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												}
 											}
