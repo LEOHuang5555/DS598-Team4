@@ -1004,7 +1004,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@range(0,12)",
+								"value": "@range(0,24)",
 								"type": "Expression"
 							},
 							"activities": [
@@ -1023,7 +1023,7 @@
 									"typeProperties": {
 										"source": {
 											"type": "RestSource",
-											"httpRequestTimeout": "00:01:40",
+											"httpRequestTimeout": "00:04:00",
 											"requestInterval": "00.00:00:00.010",
 											"requestMethod": "GET",
 											"paginationRules": {
@@ -1050,11 +1050,11 @@
 												"depArr": "arrival",
 												"airport": "LAX",
 												"start": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												},
 												"end": {
-													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -30)), 'yyyy-MM-dd')",
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -15)), 'yyyy-MM-dd')",
 													"type": "Expression"
 												}
 											}
