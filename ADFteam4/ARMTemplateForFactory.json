@@ -85,8 +85,8 @@
 						}
 					},
 					{
-						"name": "Copy data1",
-						"type": "Copy",
+						"name": "ForEach1",
+						"type": "ForEach",
 						"dependsOn": [
 							{
 								"activity": "Web1",
@@ -95,58 +95,306 @@
 								]
 							}
 						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "RestSource",
-								"httpRequestTimeout": "00:01:40",
-								"requestInterval": "00.00:00:00.010",
-								"requestMethod": "GET",
-								"paginationRules": {
-									"supportRFC5988": "true"
-								}
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
 							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "aviationEdge",
-								"type": "DatasetReference",
-								"parameters": {
-									"apiKey": {
-										"value": "@activity('Web1').output.value",
-										"type": "Expression"
+							"activities": [
+								{
+									"name": "Copy data2",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
 									},
-									"depArr": "arrival",
-									"airport": "BOS",
-									"start": "2024-10-12",
-									"end": "2024-11-11"
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "arrival",
+												"airport": "BOS",
+												"start": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												},
+												"end": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json4",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
 								}
+							]
+						}
+					},
+					{
+						"name": "ForEach1_copy1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Completed"
+								]
 							}
 						],
-						"outputs": [
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data2_copy1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "departure",
+												"airport": "BOS",
+												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"end": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json7",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "ForEach1_copy2",
+						"type": "ForEach",
+						"dependsOn": [
 							{
-								"referenceName": "Json4",
-								"type": "DatasetReference",
-								"parameters": {}
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Completed"
+								]
 							}
-						]
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data2_copy2",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "departure",
+												"airport": "LAX",
+												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"end": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json9",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "ForEach1_copy3",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data2_copy3",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "arrival",
+												"airport": "LAX",
+												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"end": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json8",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
 					}
 				],
 				"policy": {
@@ -156,7 +404,10 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/aviationEdge')]",
-				"[concat(variables('factoryId'), '/datasets/Json4')]"
+				"[concat(variables('factoryId'), '/datasets/Json4')]",
+				"[concat(variables('factoryId'), '/datasets/Json7')]",
+				"[concat(variables('factoryId'), '/datasets/Json9')]",
+				"[concat(variables('factoryId'), '/datasets/Json8')]"
 			]
 		},
 		{
@@ -402,6 +653,98 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/bostonWeather_silver')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "bostonWeather_dataFlow",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.3:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Boston_dataFlow",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Coarse"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/Boston_dataFlow')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/laWeather_silver')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "laWeather_dataFlow",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.3:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "La_dataFlow",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Coarse"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/La_dataFlow')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Json1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -492,6 +835,398 @@
 					}
 				},
 				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json5')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "bostonWeather",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"message": {
+							"type": "string"
+						},
+						"cod": {
+							"type": "string"
+						},
+						"city_id": {
+							"type": "integer"
+						},
+						"calctime": {
+							"type": "number"
+						},
+						"cnt": {
+							"type": "integer"
+						},
+						"list": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"dt": {
+										"type": "integer"
+									},
+									"main": {
+										"type": "object",
+										"properties": {
+											"temp": {
+												"type": "number"
+											},
+											"feels_like": {
+												"type": "number"
+											},
+											"pressure": {
+												"type": "integer"
+											},
+											"humidity": {
+												"type": "integer"
+											},
+											"temp_min": {
+												"type": "number"
+											},
+											"temp_max": {
+												"type": "number"
+											}
+										}
+									},
+									"wind": {
+										"type": "object",
+										"properties": {
+											"speed": {
+												"type": "number"
+											},
+											"deg": {
+												"type": "integer"
+											},
+											"gust": {
+												"type": "number"
+											}
+										}
+									},
+									"clouds": {
+										"type": "object",
+										"properties": {
+											"all": {
+												"type": "integer"
+											}
+										}
+									},
+									"weather": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer"
+												},
+												"main": {
+													"type": "string"
+												},
+												"description": {
+													"type": "string"
+												},
+												"icon": {
+													"type": "string"
+												}
+											}
+										}
+									},
+									"rain": {
+										"type": "object",
+										"properties": {
+											"1h": {
+												"type": "number"
+											}
+										}
+									},
+									"snow": {
+										"type": "object",
+										"properties": {
+											"1h": {
+												"type": "number"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json6')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "laWeather",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"message": {
+							"type": "string"
+						},
+						"cod": {
+							"type": "string"
+						},
+						"city_id": {
+							"type": "integer"
+						},
+						"calctime": {
+							"type": "number"
+						},
+						"cnt": {
+							"type": "integer"
+						},
+						"list": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"dt": {
+										"type": "integer"
+									},
+									"main": {
+										"type": "object",
+										"properties": {
+											"temp": {
+												"type": "number"
+											},
+											"feels_like": {
+												"type": "number"
+											},
+											"pressure": {
+												"type": "integer"
+											},
+											"humidity": {
+												"type": "integer"
+											},
+											"temp_min": {
+												"type": "number"
+											},
+											"temp_max": {
+												"type": "number"
+											}
+										}
+									},
+									"wind": {
+										"type": "object",
+										"properties": {
+											"speed": {
+												"type": "number"
+											},
+											"deg": {
+												"type": "integer"
+											},
+											"gust": {
+												"type": "number"
+											}
+										}
+									},
+									"clouds": {
+										"type": "object",
+										"properties": {
+											"all": {
+												"type": "integer"
+											}
+										}
+									},
+									"weather": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer"
+												},
+												"main": {
+													"type": "string"
+												},
+												"description": {
+													"type": "string"
+												},
+												"icon": {
+													"type": "string"
+												}
+											}
+										}
+									},
+									"rain": {
+										"type": "object",
+										"properties": {
+											"1h": {
+												"type": "number"
+											}
+										}
+									},
+									"snow": {
+										"type": "object",
+										"properties": {
+											"1h": {
+												"type": "number"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json7')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/BOSdeparture",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json8')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/LAXarrival",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json9')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/LAXdeparture",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "bostonWeather",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "laWeather",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
@@ -864,212 +1599,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Json5')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSTeam4",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "bostonWeather",
-						"fileSystem": "bronze"
-					}
-				},
-				"schema": {
-					"type": "object",
-					"properties": {
-						"message": {
-							"type": "string"
-						},
-						"cod": {
-							"type": "string"
-						},
-						"city_id": {
-							"type": "integer"
-						},
-						"calctime": {
-							"type": "number"
-						},
-						"cnt": {
-							"type": "integer"
-						},
-						"list": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"dt": {
-										"type": "integer"
-									},
-									"main": {
-										"type": "object",
-										"properties": {
-											"temp": {
-												"type": "number"
-											},
-											"feels_like": {
-												"type": "number"
-											},
-											"pressure": {
-												"type": "integer"
-											},
-											"humidity": {
-												"type": "integer"
-											},
-											"temp_min": {
-												"type": "number"
-											},
-											"temp_max": {
-												"type": "number"
-											}
-										}
-									},
-									"wind": {
-										"type": "object",
-										"properties": {
-											"speed": {
-												"type": "number"
-											},
-											"deg": {
-												"type": "integer"
-											},
-											"gust": {
-												"type": "number"
-											}
-										}
-									},
-									"clouds": {
-										"type": "object",
-										"properties": {
-											"all": {
-												"type": "integer"
-											}
-										}
-									},
-									"weather": {
-										"type": "array",
-										"items": {
-											"type": "object",
-											"properties": {
-												"id": {
-													"type": "integer"
-												},
-												"main": {
-													"type": "string"
-												},
-												"description": {
-													"type": "string"
-												},
-												"icon": {
-													"type": "string"
-												}
-											}
-										}
-									},
-									"rain": {
-										"type": "object",
-										"properties": {
-											"1h": {
-												"type": "number"
-											}
-										}
-									},
-									"snow": {
-										"type": "object",
-										"properties": {
-											"1h": {
-												"type": "number"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSTeam4",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "bostonWeather",
-						"fileSystem": "silver"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/bostonWeather_silver')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "bostonWeather_dataFlow",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.3:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "Boston_dataFlow",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Coarse"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/Boston_dataFlow')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/La_dataFlow')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -1219,212 +1748,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Json6')]",
 				"[concat(variables('factoryId'), '/datasets/Parquet2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Json6')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSTeam4",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "laWeather",
-						"fileSystem": "bronze"
-					}
-				},
-				"schema": {
-					"type": "object",
-					"properties": {
-						"message": {
-							"type": "string"
-						},
-						"cod": {
-							"type": "string"
-						},
-						"city_id": {
-							"type": "integer"
-						},
-						"calctime": {
-							"type": "number"
-						},
-						"cnt": {
-							"type": "integer"
-						},
-						"list": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"dt": {
-										"type": "integer"
-									},
-									"main": {
-										"type": "object",
-										"properties": {
-											"temp": {
-												"type": "number"
-											},
-											"feels_like": {
-												"type": "number"
-											},
-											"pressure": {
-												"type": "integer"
-											},
-											"humidity": {
-												"type": "integer"
-											},
-											"temp_min": {
-												"type": "number"
-											},
-											"temp_max": {
-												"type": "number"
-											}
-										}
-									},
-									"wind": {
-										"type": "object",
-										"properties": {
-											"speed": {
-												"type": "number"
-											},
-											"deg": {
-												"type": "integer"
-											},
-											"gust": {
-												"type": "number"
-											}
-										}
-									},
-									"clouds": {
-										"type": "object",
-										"properties": {
-											"all": {
-												"type": "integer"
-											}
-										}
-									},
-									"weather": {
-										"type": "array",
-										"items": {
-											"type": "object",
-											"properties": {
-												"id": {
-													"type": "integer"
-												},
-												"main": {
-													"type": "string"
-												},
-												"description": {
-													"type": "string"
-												},
-												"icon": {
-													"type": "string"
-												}
-											}
-										}
-									},
-									"rain": {
-										"type": "object",
-										"properties": {
-											"1h": {
-												"type": "number"
-											}
-										}
-									},
-									"snow": {
-										"type": "object",
-										"properties": {
-											"1h": {
-												"type": "number"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Parquet2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSTeam4",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "laWeather",
-						"fileSystem": "silver"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/laWeather_silver')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "laWeather_dataFlow",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.3:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "La_dataFlow",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Coarse"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/La_dataFlow')]"
 			]
 		}
 	]

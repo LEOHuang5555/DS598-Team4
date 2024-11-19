@@ -230,98 +230,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/aviationEdge')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "aviationEdge",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"apiKey": {
-						"type": "String"
-					},
-					"depArr": {
-						"type": "String"
-					},
-					"airport": {
-						"type": "String"
-					},
-					"start": {
-						"type": "String"
-					},
-					"end": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "RestResource",
-				"typeProperties": {
-					"relativeUrl": {
-						"value": "flightsHistory?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
-						"type": "Expression"
-					}
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/aviationEdge')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AirPollution')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('AirPollution_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Basic",
-					"userName": "[parameters('AirPollution_properties_typeProperties_userName')]",
-					"password": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "OWAPIKey",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "OpenWeatherAPIKey"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/OWAPIKey')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Weather')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('Weather_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Basic",
-					"userName": "[parameters('Weather_properties_typeProperties_userName')]",
-					"password": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "OWAPIKey",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "OpenWeatherAPIKey"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/OWAPIKey')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Json5')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -451,31 +359,6 @@
 						}
 					}
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSTeam4",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "bostonWeather",
-						"fileSystem": "silver"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
@@ -617,6 +500,103 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Json7')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/BOSdeparture",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json8')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/LAXarrival",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json9')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/LAXdeparture",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "bostonWeather",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Parquet2')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -639,6 +619,98 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/aviationEdge')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "aviationEdge",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"apiKey": {
+						"type": "String"
+					},
+					"depArr": {
+						"type": "String"
+					},
+					"airport": {
+						"type": "String"
+					},
+					"start": {
+						"type": "String"
+					},
+					"end": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "flightsHistory?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
+						"type": "Expression"
+					}
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/aviationEdge')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AirPollution')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('AirPollution_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('AirPollution_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "OWAPIKey",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "OpenWeatherAPIKey"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/OWAPIKey')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weather')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('Weather_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('Weather_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "OWAPIKey",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "OpenWeatherAPIKey"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/OWAPIKey')]"
 			]
 		},
 		{
@@ -670,8 +742,8 @@
 						}
 					},
 					{
-						"name": "Copy data1",
-						"type": "Copy",
+						"name": "ForEach1",
+						"type": "ForEach",
 						"dependsOn": [
 							{
 								"activity": "Web1",
@@ -680,58 +752,306 @@
 								]
 							}
 						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "RestSource",
-								"httpRequestTimeout": "00:01:40",
-								"requestInterval": "00.00:00:00.010",
-								"requestMethod": "GET",
-								"paginationRules": {
-									"supportRFC5988": "true"
-								}
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
 							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "aviationEdge",
-								"type": "DatasetReference",
-								"parameters": {
-									"apiKey": {
-										"value": "@activity('Web1').output.value",
-										"type": "Expression"
+							"activities": [
+								{
+									"name": "Copy data2",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
 									},
-									"depArr": "arrival",
-									"airport": "BOS",
-									"start": "2024-10-12",
-									"end": "2024-11-11"
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "arrival",
+												"airport": "BOS",
+												"start": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												},
+												"end": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json4",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
 								}
+							]
+						}
+					},
+					{
+						"name": "ForEach1_copy1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Completed"
+								]
 							}
 						],
-						"outputs": [
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data2_copy1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "departure",
+												"airport": "BOS",
+												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"end": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json7",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "ForEach1_copy2",
+						"type": "ForEach",
+						"dependsOn": [
 							{
-								"referenceName": "Json4",
-								"type": "DatasetReference",
-								"parameters": {}
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Completed"
+								]
 							}
-						]
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data2_copy2",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "departure",
+												"airport": "LAX",
+												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"end": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json9",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "ForEach1_copy3",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(0,12)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data2_copy3",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "aviationEdge",
+											"type": "DatasetReference",
+											"parameters": {
+												"apiKey": "@activity('Web1').output.value",
+												"depArr": "arrival",
+												"airport": "LAX",
+												"start": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -31)), 'yyyy-MM-dd')",
+												"end": {
+													"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(item(), -31)), 'yyyy-MM-dd')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Json8",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
 					}
 				],
 				"policy": {
@@ -741,356 +1061,10 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/aviationEdge')]",
-				"[concat(variables('factoryId'), '/datasets/Json4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/weather')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Weather",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"lat": {
-						"type": "float",
-						"defaultValue": 34.0536909
-					},
-					"lon": {
-						"type": "float",
-						"defaultValue": -118.242766
-					},
-					"start": {
-						"type": "string",
-						"defaultValue": "@div(sub(ticks(addDays(utcNow(), mul(-7, add(item(), 1)))), ticks('1970-01-01T00:00:00Z')), 10000000)"
-					},
-					"end": {
-						"type": "string",
-						"defaultValue": "@div(sub(ticks(addDays(utcNow(), mul(-7, item()))), ticks('1970-01-01T00:00:00Z')), 10000000)"
-					},
-					"apiKey": {
-						"type": "string",
-						"defaultValue": "@activity('Web1').output.value"
-					}
-				},
-				"annotations": [],
-				"type": "RestResource",
-				"typeProperties": {
-					"relativeUrl": {
-						"value": "data/2.5/history/city?lat=@{dataset().lat}&lon=@{dataset().lon}&start=@{dataset().start}&end=@{dataset().end}&appid=@{dataset().apiKey}",
-						"type": "Expression"
-					}
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Weather')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Boston_dataFlow')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "Json5",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "Parquet1",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "flatten1"
-						},
-						{
-							"name": "derivedColumn1"
-						},
-						{
-							"name": "filter1"
-						},
-						{
-							"name": "derivedColumn2"
-						},
-						{
-							"name": "select1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          message as string,",
-						"          cod as string,",
-						"          city_id as integer,",
-						"          calctime as double,",
-						"          cnt as integer,",
-						"          list as (dt as integer, main as (temp as double, feels_like as double, pressure as integer, humidity as integer, temp_min as double, temp_max as double), wind as (speed as double, deg as integer, gust as double), clouds as (all as integer), weather as (id as integer, main as string, description as string, icon as string)[], rain as ({1h} as double), snow as ({1h} as double))[]",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine',",
-						"     wildcardPaths:['bostonWeather/*.json']) ~> source1",
-						"source1 foldDown(unroll(list),",
-						"     mapColumn(",
-						"          message,",
-						"          cod,",
-						"          city_id,",
-						"          calctime,",
-						"          cnt,",
-						"          timestamp = list.dt,",
-						"          temp = list.main.temp,",
-						"          feels_like = list.main.feels_like,",
-						"          pressure = list.main.pressure,",
-						"          humidity = list.main.humidity,",
-						"          temp_min = list.main.temp_min,",
-						"          temp_max = list.main.temp_max,",
-						"          wind_speed = list.wind.speed,",
-						"          wind_deg = list.wind.deg,",
-						"          wind_gust = list.wind.gust,",
-						"          all = list.clouds.all,",
-						"          weather_id = list.weather.id,",
-						"          main = list.weather.main,",
-						"          description = list.weather.description,",
-						"          icon = list.weather.icon,",
-						"          rain_1h = list.rain.{1h},",
-						"          snow_1h = list.snow.{1h}",
-						"     ),",
-						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: false) ~> flatten1",
-						"flatten1 derive(corrected_timestamp = iif(length(toString(timestamp)) > 10, toInteger(null()), toInteger(timestamp)),",
-						"          location = 'Boston') ~> derivedColumn1",
-						"derivedColumn1 filter(!isNull(temp) && !isNull(humidity) && !isNull(corrected_timestamp)) ~> filter1",
-						"filter1 derive(date_time = toTimestamp(toLong(corrected_timestamp) * 1000),",
-						"          id = concat(location, '_', toString(corrected_timestamp)),",
-						"          temp_c = round(temp - 273.15, 2),",
-						"          temp_f = round((temp - 273.15) * 9/5 + 32, 2),",
-						"          temp_min_c = round(temp_min - 273.15, 2),",
-						"          temp_min_f = round((temp_min - 273.15) * 9/5 + 32, 2),",
-						"          temp_max_c = round(temp_max - 273.15, 2),",
-						"          temp_max_f = round((temp_min - 273.15) * 9/5 + 32, 2),",
-						"          lat = 42.3601,",
-						"          lon = -71.0589,",
-						"          weather_id_value = toInteger(split(toString(weather_id[1]),':')[1]),",
-						"          weather_main_value = (split(toString(main[1]), ':')[1]),",
-						"          weather_description_value = (split(toString(description[1]),':')[1]),",
-						"          weather_icon_value = (split(toString(icon[1]), ':')[1]),",
-						"          rain_1h = iif(isNull(rain_1h), toFloat(0.0), toFloat(rain_1h)),",
-						"          snow_1h = iif(isNull(snow_1h), toFloat(0.0), toFloat(snow_1h))) ~> derivedColumn2",
-						"derivedColumn2 select(mapColumn(",
-						"          temp,",
-						"          feels_like,",
-						"          pressure,",
-						"          humidity,",
-						"          temp_min,",
-						"          temp_max,",
-						"          wind_speed,",
-						"          wind_deg,",
-						"          wind_gust,",
-						"          all,",
-						"          rain_1h,",
-						"          snow_1h,",
-						"          corrected_timestamp,",
-						"          location,",
-						"          date_time,",
-						"          id,",
-						"          temp_c,",
-						"          temp_f,",
-						"          temp_min_c,",
-						"          temp_min_f,",
-						"          temp_max_c,",
-						"          temp_max_f,",
-						"          lat,",
-						"          lon,",
-						"          weather_id_value,",
-						"          weather_main_value,",
-						"          weather_description_value,",
-						"          weather_icon_value",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     partitionFileNames:['historicalBostonWeather'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Json5')]",
-				"[concat(variables('factoryId'), '/datasets/Parquet1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/La_dataFlow')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "Json6",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "Parquet2",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "flatten1"
-						},
-						{
-							"name": "derivedColumn1"
-						},
-						{
-							"name": "filter1"
-						},
-						{
-							"name": "derivedColumn2"
-						},
-						{
-							"name": "select1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          message as string,",
-						"          cod as string,",
-						"          city_id as integer,",
-						"          calctime as double,",
-						"          cnt as integer,",
-						"          list as (dt as integer, main as (temp as double, feels_like as double, pressure as integer, humidity as integer, temp_min as double, temp_max as double), wind as (speed as double, deg as integer, gust as double), clouds as (all as integer), weather as (id as integer, main as string, description as string, icon as string)[], rain as ({1h} as double), snow as ({1h} as double))[]",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine',",
-						"     wildcardPaths:['laWeather/*.json']) ~> source1",
-						"source1 foldDown(unroll(list),",
-						"     mapColumn(",
-						"          message,",
-						"          cod,",
-						"          city_id,",
-						"          calctime,",
-						"          cnt,",
-						"          timestamp = list.dt,",
-						"          temp = list.main.temp,",
-						"          feels_like = list.main.feels_like,",
-						"          pressure = list.main.pressure,",
-						"          humidity = list.main.humidity,",
-						"          temp_min = list.main.temp_min,",
-						"          temp_max = list.main.temp_max,",
-						"          wind_speed = list.wind.speed,",
-						"          wind_deg = list.wind.deg,",
-						"          wind_gust = list.wind.gust,",
-						"          all = list.clouds.all,",
-						"          weather_id = list.weather.id,",
-						"          main = list.weather.main,",
-						"          description = list.weather.description,",
-						"          icon = list.weather.icon,",
-						"          rain_1h = list.rain.{1h},",
-						"          snow_1h = list.snow.{1h}",
-						"     ),",
-						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: false) ~> flatten1",
-						"flatten1 derive(corrected_timestamp = iif(length(toString(timestamp)) > 10, toInteger(null()), toInteger(timestamp)),",
-						"          location = 'LA') ~> derivedColumn1",
-						"derivedColumn1 filter(!isNull(temp) && !isNull(humidity) && !isNull(corrected_timestamp)) ~> filter1",
-						"filter1 derive(date_time = toTimestamp(toLong(corrected_timestamp) * 1000),",
-						"          id = concat(location, '_', toString(corrected_timestamp)),",
-						"          temp_c = round(temp - 273.15, 2),",
-						"          temp_f = round((temp - 273.15) * 9/5 + 32, 2),",
-						"          temp_min_c = round(temp_min - 273.15, 2),",
-						"          temp_min_f = round((temp_min - 273.15) * 9/5 + 32, 2),",
-						"          temp_max_c = round(temp_max - 273.15, 2),",
-						"          temp_max_f = round((temp_min - 273.15) * 9/5 + 32, 2),",
-						"          lat = 34.0522,",
-						"          lon = -118.2436,",
-						"          weather_id_value = toInteger(split(toString(weather_id[1]),':')[1]),",
-						"          weather_main_value = (split(toString(main[1]), ':')[1]),",
-						"          weather_description_value = (split(toString(description[1]),':')[1]),",
-						"          weather_icon_value = (split(toString(icon[1]), ':')[1]),",
-						"          rain_1h = iif(isNull(rain_1h), toFloat(0.0), toFloat(rain_1h)),",
-						"          snow_1h = iif(isNull(snow_1h), toFloat(0.0), toFloat(snow_1h))) ~> derivedColumn2",
-						"derivedColumn2 select(mapColumn(",
-						"          temp,",
-						"          feels_like,",
-						"          pressure,",
-						"          humidity,",
-						"          temp_min,",
-						"          temp_max,",
-						"          wind_speed,",
-						"          wind_deg,",
-						"          wind_gust,",
-						"          all,",
-						"          rain_1h,",
-						"          snow_1h,",
-						"          corrected_timestamp,",
-						"          location,",
-						"          date_time,",
-						"          id,",
-						"          temp_c,",
-						"          temp_f,",
-						"          temp_min_c,",
-						"          temp_min_f,",
-						"          temp_max_c,",
-						"          temp_max_f,",
-						"          lat,",
-						"          lon,",
-						"          weather_id_value,",
-						"          weather_main_value,",
-						"          weather_description_value,",
-						"          weather_icon_value",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     partitionFileNames:['historicalLaWeather'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Json6')]",
-				"[concat(variables('factoryId'), '/datasets/Parquet2')]"
+				"[concat(variables('factoryId'), '/datasets/Json4')]",
+				"[concat(variables('factoryId'), '/datasets/Json7')]",
+				"[concat(variables('factoryId'), '/datasets/Json9')]",
+				"[concat(variables('factoryId'), '/datasets/Json8')]"
 			]
 		}
 	]
