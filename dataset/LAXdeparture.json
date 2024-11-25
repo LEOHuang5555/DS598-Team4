@@ -1,5 +1,5 @@
 {
-	"name": "Json9",
+	"name": "LAXdeparture",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSTeam4",
