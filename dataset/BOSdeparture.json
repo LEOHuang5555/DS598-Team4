@@ -1,5 +1,5 @@
 {
-	"name": "Json7",
+	"name": "BOSdeparture",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSTeam4",

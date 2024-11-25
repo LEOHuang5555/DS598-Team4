@@ -1,5 +1,5 @@
 {
-	"name": "Json5",
+	"name": "bostonWeather",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSTeam4",

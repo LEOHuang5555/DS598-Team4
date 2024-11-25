@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "Json6",
+						"referenceName": "laWeather",
 						"type": "DatasetReference"
 					},
 					"name": "source1"

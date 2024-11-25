@@ -177,7 +177,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Json7",
+									"referenceName": "BOSdeparture",
 									"type": "DatasetReference"
 								}
 							]
