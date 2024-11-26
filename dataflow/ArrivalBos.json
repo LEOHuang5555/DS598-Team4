@@ -17,6 +17,12 @@
 				{
 					"name": "flatten1",
 					"description": "Add columns to map"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -74,7 +80,28 @@
 				"     ),",
 				"     partitionBy('hash', 1),",
 				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1"
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"flatten1 derive(flight_duration_minutes = toInteger((toTimestamp(arr_scheduledTime, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS') - toTimestamp(dep_scheduledTime, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS')) / 60 / 1000),",
+				"          departure_scheduledTime_dt = toTimestamp(dep_scheduledTime, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS')",
+				",",
+				"          departure_delay_minutes = toInteger((toTimestamp(dep_actualTime, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS') - toTimestamp(dep_scheduledTime, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS')) / 60 / 1000)",
+				",",
+				"          airline_name_upper = upper(airline_name)",
+				",",
+				"          flight_number_trimmed = trim(flight_number)",
+				",",
+				"          departure_gate = iif(isNull(dep_gate), 'Unknown', dep_gate)",
+				",",
+				"          actual_departure_time = iif(isNull(dep_actualTime), dep_scheduledTime, dep_actualTime)",
+				",",
+				"          flight_id = concat(airline_iataCode, '_', flight_number, '_', toString(toDate(dep_scheduledTime, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS'), 'yyyyMMdd'))",
+				",",
+				"          is_on_time_departure = iif(dep_delay <= 0, true(), false())",
+				",",
+				"          departure_delay_category = iif(dep_delay <= 15, '0-15 min',",
+				"    iif(dep_delay <= 30, '16-30 min', '30+ min'))",
+				") ~> derivedColumn1",
+				"derivedColumn1 filter(!isNull(flight_id) && !isNull(type)  && !isNull(status) ) ~> filter1"
 			]
 		}
 	}
