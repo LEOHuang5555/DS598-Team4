@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "Parquet1",
+						"referenceName": "silver_bostonWeather",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
