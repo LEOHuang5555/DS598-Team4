@@ -1,5 +1,5 @@
 {
-	"name": "Parquet1",
+	"name": "silver_bostonWeather",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSTeam4",
