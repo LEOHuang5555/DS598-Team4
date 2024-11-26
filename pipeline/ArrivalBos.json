@@ -95,7 +95,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Json4",
+									"referenceName": "BOSarrival",
 									"type": "DatasetReference"
 								}
 							]
@@ -255,12 +255,6 @@
 											"type": "Expression"
 										}
 									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "Json9",
-									"type": "DatasetReference"
 								}
 							]
 						}
