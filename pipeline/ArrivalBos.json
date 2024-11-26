@@ -256,6 +256,12 @@
 										}
 									}
 								}
+							],
+							"outputs": [
+								{
+									"referenceName": "LAXdeparture",
+									"type": "DatasetReference"
+								}
 							]
 						}
 					]
