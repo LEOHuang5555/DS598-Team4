@@ -51,6 +51,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine',",
+				"     wildcardPaths:['flightData/BOSarrival/*.json'],",
 				"     partitionBy('hash', 1)) ~> source1",
 				"source1 foldDown(unroll(),",
 				"     mapColumn(",
