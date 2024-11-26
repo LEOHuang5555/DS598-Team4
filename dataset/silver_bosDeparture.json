@@ -1,0 +1,20 @@
+{
+	"name": "silver_bosDeparture",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSTeam4",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "bosArrival",
+				"fileSystem": "silver"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
