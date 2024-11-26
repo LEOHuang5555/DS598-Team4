@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "laWeather_dataFlow",
+				"name": "bosArrivalDataFlow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "La_dataFlow",
+						"referenceName": "ArrivalBos",
 						"type": "DataFlowReference"
 					},
 					"compute": {
