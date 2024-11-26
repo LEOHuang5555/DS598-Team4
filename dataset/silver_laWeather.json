@@ -1,5 +1,5 @@
 {
-	"name": "Parquet2",
+	"name": "silver_laWeather",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSTeam4",
