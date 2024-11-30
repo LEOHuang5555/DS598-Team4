@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "ArrivalBos",
+						"referenceName": "ArrivalBos_copy1",
 						"type": "DataFlowReference"
 					},
 					"compute": {
