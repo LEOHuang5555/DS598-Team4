@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "BOSarrival",
+						"referenceName": "MBosArrival",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -44,11 +44,11 @@
 				"source(output(",
 				"          type as string,",
 				"          status as string,",
-				"          departure as (iataCode as string, icaoCode as string, gate as string, delay as integer, scheduledTime as string, estimatedTime as string, actualTime as string, estimatedRunway as string, actualRunway as string, terminal as string),",
-				"          arrival as (iataCode as string, icaoCode as string, terminal as string, baggage as string, gate as string, scheduledTime as string, estimatedTime as string, actualTime as string, estimatedRunway as string, actualRunway as string, delay as integer),",
-				"          airline as (name as string, iataCode as string, icaoCode as string),",
-				"          flight as (number as string, iataNumber as string, icaoNumber as string),",
-				"          codeshared as (airline as (name as string, iataCode as string, icaoCode as string), flight as (number as string, iataNumber as string, icaoNumber as string))",
+				"          departure as (iataCode as string, icaoCode as string, gate as string, delay as integer, scheduledTime as string, estimatedTime as string, actualTime as string, estimatedRunway as string, actualRunway as string)[],",
+				"          arrival as (iataCode as string, icaoCode as string, terminal as string, baggage as string, gate as string, scheduledTime as string, estimatedTime as string, actualTime as string, estimatedRunway as string, actualRunway as string)[],",
+				"          airline as (name as string, iataCode as string, icaoCode as string)[],",
+				"          flight as (number as string, iataNumber as string, icaoNumber as string)[],",
+				"          codeshared as (airline as (name as string, iataCode as string, icaoCode as string)[], flight as (number as string, iataNumber as string, icaoNumber as string)[])",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
@@ -56,7 +56,7 @@
 				"     documentForm: 'documentPerLine',",
 				"     wildcardPaths:['flightData/BOSarrival/*.json'],",
 				"     partitionBy('hash', 1)) ~> source1",
-				"source1 foldDown(unrollMultiple(departure,arrival,airline,flight,codeshared),",
+				"source1 foldDown(unrollMultiple(departure,arrival,airline,flight,codeshared.airline,codeshared.flight),",
 				"     mapColumn(",
 				"          type,",
 				"          status,",
