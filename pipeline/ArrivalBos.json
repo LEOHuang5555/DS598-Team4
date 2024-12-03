@@ -83,11 +83,11 @@
 										"depArr": "arrival",
 										"airport": "BOS",
 										"start": {
-											"value": "@formatDateTime(addDays('2024-11-16T00:00:00Z', mul(add(item(),1), -15)), 'yyyy-MM-dd')",
+											"value": "@formatDateTime(addDays('2024-11-30T00:00:00Z', mul(add(item(),1), -15)), 'yyyy-MM-dd')",
 											"type": "Expression"
 										},
 										"end": {
-											"value": "@formatDateTime(addDays('2024-12-02T00:00:00Z', mul(item(), -15)), 'yyyy-MM-dd')",
+											"value": "@formatDateTime(addDays('2024-11-30T00:00:00Z', mul(item(), -15)), 'yyyy-MM-dd')",
 											"type": "Expression"
 										}
 									}
