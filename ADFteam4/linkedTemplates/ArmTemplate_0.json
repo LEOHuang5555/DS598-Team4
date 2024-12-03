@@ -42,14 +42,6 @@
 		"AirPollution_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "DS598Team4"
-		},
-		"Weather_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://history.openweathermap.org/"
-		},
-		"Weather_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "DS598Team4"
 		}
 	},
 	"variables": {
@@ -446,6 +438,186 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/MBosArrival')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/BosArrival1",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						},
+						"status": {
+							"type": "string"
+						},
+						"departure": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"iataCode": {
+										"type": "string"
+									},
+									"icaoCode": {
+										"type": "string"
+									},
+									"gate": {
+										"type": "string"
+									},
+									"delay": {
+										"type": "integer"
+									},
+									"scheduledTime": {
+										"type": "string"
+									},
+									"estimatedTime": {
+										"type": "string"
+									},
+									"actualTime": {
+										"type": "string"
+									},
+									"estimatedRunway": {
+										"type": "string"
+									},
+									"actualRunway": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"arrival": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"iataCode": {
+										"type": "string"
+									},
+									"icaoCode": {
+										"type": "string"
+									},
+									"terminal": {
+										"type": "string"
+									},
+									"baggage": {
+										"type": "string"
+									},
+									"gate": {
+										"type": "string"
+									},
+									"scheduledTime": {
+										"type": "string"
+									},
+									"estimatedTime": {
+										"type": "string"
+									},
+									"actualTime": {
+										"type": "string"
+									},
+									"estimatedRunway": {
+										"type": "string"
+									},
+									"actualRunway": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"airline": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"iataCode": {
+										"type": "string"
+									},
+									"icaoCode": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"flight": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"number": {
+										"type": "string"
+									},
+									"iataNumber": {
+										"type": "string"
+									},
+									"icaoNumber": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"codeshared": {
+							"type": "object",
+							"properties": {
+								"airline": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"iataCode": {
+												"type": "string"
+											},
+											"icaoCode": {
+												"type": "string"
+											}
+										}
+									}
+								},
+								"flight": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"number": {
+												"type": "string"
+											},
+											"iataNumber": {
+												"type": "string"
+											},
+											"icaoNumber": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/aviationEdge')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -475,7 +647,7 @@
 				"type": "RestResource",
 				"typeProperties": {
 					"relativeUrl": {
-						"value": "flightsHistory?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
+						"value": "delay_reason?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
 						"type": "Expression"
 					}
 				},
@@ -842,32 +1014,6 @@
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Basic",
 					"userName": "[parameters('AirPollution_properties_typeProperties_userName')]",
-					"password": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "OWAPIKey",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "OpenWeatherAPIKey"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/OWAPIKey')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Weather')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('Weather_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Basic",
-					"userName": "[parameters('Weather_properties_typeProperties_userName')]",
 					"password": {
 						"type": "AzureKeyVaultSecret",
 						"store": {
