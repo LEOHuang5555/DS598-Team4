@@ -1,0 +1,160 @@
+{
+	"name": "Json4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSTeam4",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "flightData/BOSarrival",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string"
+				},
+				"departure": {
+					"type": "object",
+					"properties": {
+						"iataCode": {
+							"type": "string"
+						},
+						"icaoCode": {
+							"type": "string"
+						},
+						"terminal": {
+							"type": "string"
+						},
+						"gate": {
+							"type": "string"
+						},
+						"delay": {
+							"type": "integer"
+						},
+						"scheduledTime": {
+							"type": "string"
+						},
+						"actualTime": {
+							"type": "string"
+						},
+						"estimatedRunway": {
+							"type": "string"
+						},
+						"actualRunway": {
+							"type": "string"
+						}
+					}
+				},
+				"arrival": {
+					"type": "object",
+					"properties": {
+						"iataCode": {
+							"type": "string"
+						},
+						"icaoCode": {
+							"type": "string"
+						},
+						"terminal": {
+							"type": "string"
+						},
+						"baggage": {
+							"type": "string"
+						},
+						"gate": {
+							"type": "string"
+						},
+						"scheduledTime": {
+							"type": "string"
+						},
+						"estimatedTime": {
+							"type": "string"
+						},
+						"actualTime": {
+							"type": "string"
+						},
+						"estimatedRunway": {
+							"type": "string"
+						},
+						"actualRunway": {
+							"type": "string"
+						},
+						"delay": {
+							"type": "integer"
+						}
+					}
+				},
+				"airline": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"iataCode": {
+							"type": "string"
+						},
+						"icaoCode": {
+							"type": "string"
+						}
+					}
+				},
+				"flight": {
+					"type": "object",
+					"properties": {
+						"number": {
+							"type": "string"
+						},
+						"iataNumber": {
+							"type": "string"
+						},
+						"icaoNumber": {
+							"type": "string"
+						}
+					}
+				},
+				"codeshared": {
+					"type": "object",
+					"properties": {
+						"airline": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"iataCode": {
+									"type": "string"
+								},
+								"icaoCode": {
+									"type": "string"
+								}
+							}
+						},
+						"flight": {
+							"type": "object",
+							"properties": {
+								"number": {
+									"type": "string"
+								},
+								"iataNumber": {
+									"type": "string"
+								},
+								"icaoNumber": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
