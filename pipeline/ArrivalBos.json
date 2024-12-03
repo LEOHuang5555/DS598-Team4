@@ -26,6 +26,8 @@
 			{
 				"name": "ForEach1_copy2",
 				"type": "ForEach",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Web1",
@@ -80,8 +82,8 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"apiKey": "@activity('Web1').output.value",
-										"depArr": "arrival",
-										"airport": "BOS",
+										"depArr": "departure",
+										"airport": "LAX",
 										"start": {
 											"value": "@formatDateTime(addDays('2024-11-30T00:00:00Z', mul(add(item(),1), -15)), 'yyyy-MM-dd')",
 											"type": "Expression"
@@ -95,13 +97,73 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "BOSarrival",
+									"referenceName": "LAXdeparture",
 									"type": "DatasetReference"
 								}
 							]
 						}
 					]
 				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Web1",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:04:00",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "aviationEdge",
+						"type": "DatasetReference",
+						"parameters": {
+							"apiKey": "@activity('Web1').output.value",
+							"depArr": "arrival",
+							"airport": "LAX",
+							"start": "2024-08-17",
+							"end": "2024-09-01"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "LAXarrival",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
