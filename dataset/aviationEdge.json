@@ -26,7 +26,7 @@
 		"type": "RestResource",
 		"typeProperties": {
 			"relativeUrl": {
-				"value": "flightsHistory?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
+				"value": "delay_reason?key=@{dataset().apiKey}&code=@{dataset().airport}&type=@{dataset().depArr}&date_from=@{dataset().start}&date_to=@{dataset().end}",
 				"type": "Expression"
 			}
 		},
