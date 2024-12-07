@@ -57,7 +57,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/ArrivalBos')]",
+			"name": "[concat(parameters('factoryName'), '/IngestionBronze')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -87,8 +87,6 @@
 					{
 						"name": "ForEach1_copy2",
 						"type": "ForEach",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Web1",
@@ -170,6 +168,8 @@
 					{
 						"name": "Copy data1",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Web1",
@@ -741,6 +741,171 @@
 					}
 				},
 				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json4')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTeam4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "flightData/BOSarrival",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						},
+						"status": {
+							"type": "string"
+						},
+						"departure": {
+							"type": "object",
+							"properties": {
+								"iataCode": {
+									"type": "string"
+								},
+								"icaoCode": {
+									"type": "string"
+								},
+								"terminal": {
+									"type": "string"
+								},
+								"gate": {
+									"type": "string"
+								},
+								"delay": {
+									"type": "integer"
+								},
+								"scheduledTime": {
+									"type": "string"
+								},
+								"actualTime": {
+									"type": "string"
+								},
+								"estimatedRunway": {
+									"type": "string"
+								},
+								"actualRunway": {
+									"type": "string"
+								}
+							}
+						},
+						"arrival": {
+							"type": "object",
+							"properties": {
+								"iataCode": {
+									"type": "string"
+								},
+								"icaoCode": {
+									"type": "string"
+								},
+								"terminal": {
+									"type": "string"
+								},
+								"baggage": {
+									"type": "string"
+								},
+								"gate": {
+									"type": "string"
+								},
+								"scheduledTime": {
+									"type": "string"
+								},
+								"estimatedTime": {
+									"type": "string"
+								},
+								"actualTime": {
+									"type": "string"
+								},
+								"estimatedRunway": {
+									"type": "string"
+								},
+								"actualRunway": {
+									"type": "string"
+								},
+								"delay": {
+									"type": "integer"
+								}
+							}
+						},
+						"airline": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"iataCode": {
+									"type": "string"
+								},
+								"icaoCode": {
+									"type": "string"
+								}
+							}
+						},
+						"flight": {
+							"type": "object",
+							"properties": {
+								"number": {
+									"type": "string"
+								},
+								"iataNumber": {
+									"type": "string"
+								},
+								"icaoNumber": {
+									"type": "string"
+								}
+							}
+						},
+						"codeshared": {
+							"type": "object",
+							"properties": {
+								"airline": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string"
+										},
+										"iataCode": {
+											"type": "string"
+										},
+										"icaoCode": {
+											"type": "string"
+										}
+									}
+								},
+								"flight": {
+									"type": "object",
+									"properties": {
+										"number": {
+											"type": "string"
+										},
+										"iataNumber": {
+											"type": "string"
+										},
+										"icaoNumber": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADLSTeam4')]"

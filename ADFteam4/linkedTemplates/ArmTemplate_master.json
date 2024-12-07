@@ -98,12 +98,6 @@
 					},
 					"aviationEdge_properties_typeProperties_url": {
 						"value": "[parameters('aviationEdge_properties_typeProperties_url')]"
-					},
-					"AirPollution_properties_typeProperties_url": {
-						"value": "[parameters('AirPollution_properties_typeProperties_url')]"
-					},
-					"AirPollution_properties_typeProperties_userName": {
-						"value": "[parameters('AirPollution_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -122,6 +116,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AirPollution_properties_typeProperties_url": {
+						"value": "[parameters('AirPollution_properties_typeProperties_url')]"
+					},
+					"AirPollution_properties_typeProperties_userName": {
+						"value": "[parameters('AirPollution_properties_typeProperties_userName')]"
 					},
 					"Weather_properties_typeProperties_url": {
 						"value": "[parameters('Weather_properties_typeProperties_url')]"
